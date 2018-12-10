@@ -123,10 +123,10 @@ const webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       },
-      {
-        from: path.resolve(__dirname,'/WW_verify_z793ZwW9R5YytI0x.txt'),
-        to: '../dist'
-      }
+      // {
+      //   from: path.resolve(__dirname,'/WW_verify_z793ZwW9R5YytI0x.txt'),
+      //   to: '../dist'
+      // }
     ]),
 
     new SentryCliPlugin({

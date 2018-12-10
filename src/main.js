@@ -31,7 +31,7 @@ axios.interceptors.response.use(
       let config = {
           name: "wqSystem",
           page: response.config.url,
-          err: response.data.msg
+          err: response
       }
       axios.post(url, config).then(function(res){}).catch((err)=>{})
     }

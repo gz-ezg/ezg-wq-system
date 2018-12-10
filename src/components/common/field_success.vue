@@ -9,7 +9,7 @@
                 已成功打卡！
             </center>
             <center style="margin-top:40px">
-                本次外勤时间为{{hour}}小时{{minutes}}分钟{{seconds}}秒 
+                本次外勤时间为{{hour}}小时{{minutes}}分钟{{seconds}}秒
             </center>
         </van-row>
         <van-tabbar style="margin-top:30px;">
@@ -32,14 +32,14 @@ export default {
             localStorage.clear()
             sessionStorage.clear()
             window.close()
-            WeixinJSBridge.invoke('closeWindow',{},function(res){
-                //alert(res.err_msg);
-            })
-            if (typeof WeixinJSBridge === "undefined") {
-                document.addEventListener('WeixinJSBridgeReady', readyFunc, false);
-            } else {
-                readyFunc();
-            }
+            // WeixinJSBridge.invoke('closeWindow',{},function(res){
+            //     //alert(res.err_msg);
+            // })
+            // if (typeof WeixinJSBridge === "undefined") {
+            //     document.addEventListener('WeixinJSBridgeReady', readyFunc, false);
+            // } else {
+            //     readyFunc();
+            // }
         },
     },
     created(){

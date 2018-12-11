@@ -49,6 +49,11 @@ axios.interceptors.response.use(
   }
 )
 
+if(process.env.NODE_ENV !== 'development' ){
+  Vue.config.errorHandler = function(err, vm, info) {
+      Raven.captureException(err)
+  }
+}
 Vue.prototype.$http = axios
 
 Vue.prototype.$Get = function(url, config, success){

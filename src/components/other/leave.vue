@@ -185,31 +185,41 @@ export default {
         time_accout(){
             let _self = this
             this.startTime = localStorage.getItem('startTime')
-            setInterval(()=>{
+            _self.start()
+            let time1 = setInterval(()=>{
                 _self.start()
-            },1000)
+            }, 1000)
+            _self.$once('hook:beforeDestroy', () => {
+              clearInterval(time1);
+            })
         },
         start(){
             let _self = this
             let time = this.startTime
             let nowTime = new Date()
             let temp = nowTime.getTime() - time
-            let days = Math.floor(temp / (24 * 3600 * 1000))
-            temp = temp % (24 * 3600 * 1000)
-            let hours = Math.floor(temp / (3600 * 1000))
-            temp = temp % (3600 * 1000)
-            let minutes = Math.floor(temp / (60 * 1000))
-            if(minutes<10){
-                minutes = "0" + minutes
-            }
-            temp = temp % (60 * 1000)
-            let seconds = Math.round(temp / 1000)
-            if(seconds<10){
-                seconds = "0" + seconds
-            }
-            _self.show_hour = hours
-            _self.show_minutes = minutes
-            _self.show_seconds = seconds
+
+            let timetamp = new Date(temp)
+
+            _self.show_hour = timetamp.getHours()
+            _self.show_minutes = timetamp.getMinutes()
+            _self.show_seconds = timetamp.getSeconds()
+            // let days = Math.floor(temp / (24 * 3600 * 1000))
+            // temp = temp % (24 * 3600 * 1000)
+            // let hours = Math.floor(temp / (3600 * 1000))
+            // temp = temp % (3600 * 1000)
+            // let minutes = Math.floor(temp / (60 * 1000))
+            // if(minutes<10){
+            //     minutes = "0" + minutes
+            // }
+            // temp = temp % (60 * 1000)
+            // let seconds = Math.round(temp / 1000)
+            // if(seconds<10){
+            //     seconds = "0" + seconds
+            // }
+            // _self.show_hour = hours
+            // _self.show_minutes = minutes
+            // _self.show_seconds = seconds
         },
         getUnfinshWork(){
             let _self = this
@@ -240,7 +250,7 @@ export default {
         this.companyname = localStorage.getItem('companyname')
     },
     mounted(){
-        this.start()
+        // this.start()
         this.time_accout()
     },
     beforeUpdate(){
@@ -249,6 +259,9 @@ export default {
             _self.type = e.typename
             _self.type_typecode = e.typecode
         })
+    },
+    beforeDestroy(){
+      console.log("destroy")
     }
 }
 </script>

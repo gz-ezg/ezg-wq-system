@@ -314,9 +314,13 @@ export default {
             // setImmediate(()=>{
             //     _self.start()
             // })
-            setInterval(()=>{
+            _self.start()
+            let time1 = setInterval(()=>{
                 _self.start()
-            },1000)
+            }, 1000)
+            _self.$once('hook:beforeDestroy', () => {
+                clearInterval(time1);
+            })
         },
         start(){
             let _self = this
@@ -336,6 +340,9 @@ export default {
             if(seconds<10){
                 seconds = "0" + seconds
             }
+            console.log(hours)
+            console.log(minutes)
+            console.log(seconds)
             _self.show_hour = hours
             _self.show_minutes = minutes
             _self.show_seconds = seconds
@@ -378,7 +385,6 @@ export default {
         // this.getLocalIndex()
     },
     mounted(){
-        this.start()
         this.time_accout()
     },
     beforeUpdate(){

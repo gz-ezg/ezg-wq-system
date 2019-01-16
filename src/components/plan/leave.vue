@@ -266,9 +266,13 @@ export default {
             // setImmediate(()=>{
             //     _self.start()
             // })
-            setInterval(()=>{
+            _self.start()
+            let time1 = setInterval(()=>{
                 _self.start()
-            },1000)
+            }, 1000)
+            _self.$once('hook:beforeDestroy', () => {
+                clearInterval(time1);
+            })
         },
         start(){
             let _self = this

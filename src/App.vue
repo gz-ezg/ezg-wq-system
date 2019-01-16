@@ -44,8 +44,6 @@ export default {
   font-family: '-apple-system', "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
   color: #1a5086;
-  /* margin-top: 60px; */
 }
 </style>

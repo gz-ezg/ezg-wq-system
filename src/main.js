@@ -3,20 +3,22 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store';
 import Vant from 'vant';
 import { Lazyload } from 'vant';
 import axios from 'axios'
 import VueBus from './common/vue-bus'
 import { Toast } from 'vant';
 import 'vant/lib/index.css';
+import 'lib-flexible/flexible.js'
 
-import Raven from 'raven-js';
-import RavenVue from 'raven-js/plugins/vue';
+// import Raven from 'raven-js';
+// import RavenVue from 'raven-js/plugins/vue';
 
-Raven
-    .config("https://10cecf4fd1df4521a824adef6a810284@sentry.io/1340183")
-    .addPlugin(RavenVue, Vue)
-    .install();
+// Raven
+//     .config("https://10cecf4fd1df4521a824adef6a810284@sentry.io/1340183")
+//     .addPlugin(RavenVue, Vue)
+//     .install();
 
 Vue.use(VueBus)
 Vue.use(Vant);
@@ -37,37 +39,24 @@ axios.interceptors.response.use(
     }
     if(response.data.msgCode == "50003" ){
       Toast.fail("登录失效！")
-        router.push({
+      router.push({
         name:'Login'
       })
     }
     return response;
   },
   (error) => {
-    Raven.captureException(error);
+    // Raven.captureException(error);
     return Promise.reject(error)
   }
 )
 
-if(process.env.NODE_ENV !== 'development' ){
-  Vue.config.errorHandler = function(err, vm, info) {
-      Raven.captureException(err)
-  }
-}
+// if(process.env.NODE_ENV !== 'development' ){
+//   Vue.config.errorHandler = function(err, vm, info) {
+//       Raven.captureException(err)
+//   }
+// }
 Vue.prototype.$http = axios
-
-Vue.prototype.$Get = function(url, config, success){
-	let _self = this
-	_self.$http.get(url, config).then(function(res){
-		if(res.data.msgCode == "40000"){
-			success(res)
-		}else{
-			_self.$toast.fail('系统错误！')
-		}
-	}).catch(function(err){
-		_self.$toast.fail('网络错误！')
-	})
-}
 
 Vue.prototype.$backTo = function(){
   this.$router.go(-1)
@@ -79,6 +68,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

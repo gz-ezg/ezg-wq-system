@@ -1,9 +1,9 @@
 <template>
     <van-row style="overflow-x: hidden">
         <van-row>
-            <div style="height: 150px;margin-top: 7rem">
+            <div style="height: 4rem;margin-top:4rem">
                 <center>
-                    <img style="height: 80px" src="./logo.png"/>
+                    <img style="height: 2.5rem" src="./logo.png"/>
                 </center>
             </div>
             <div style="width:80%;margin:auto">
@@ -21,7 +21,7 @@
                         />
                 </van-cell-group>
             </div>
-            <van-row style="width:80%;margin:auto;margin-top:60px">
+            <van-row style="width:80%;margin:auto;margin-top:2rem">
                 <van-button size="large" type="primary" @click="login">登 陆</van-button>
             </van-row>
         </van-row>
@@ -30,34 +30,128 @@
 
 <script>
 import Cookies from 'js-cookie';
+import * as loginApi from '@api/login/index'
 
 export default {
     data(){
         return{
             username:"",
-            password:""
+            password:"",
+            roleMapIndex: new Map([
+                ["salers", "marketIndex"],
+                ["kj", "accountIndex"],
+                ["kjbgd", "accountIndex"],
+                ["jzkj","accountIndex"],
+                ["servicer", "commericalIndex"],
+                ["ssbgd", "commericalIndex"],
+                ["planner", "planIndex"],
+                ["qhbgd", "planIndex"],
+            ]),
+            roleMapLeave: new Map([
+                ["salers", "marketLeave"],
+                ["kj", "accountLeave"],
+                ["kjbgd", "accountLeave"],
+                ["jzkj","accountLeave"],
+                ["servicer", "commericalLeave"],
+                ["ssbgd", "commericalLeave"],
+                ["planner", "planLeave"],
+                ["qhbgd", "planLeave"],
+            ])
+        }
+    },
+    computed:{
+        roleArray(){
+            return this.$store.state.roleArray
         }
     },
     methods:{
-        login(){
-            let _self = this
-            let url = `api/user/login`
+        async login(){
             let config = {
-                username: _self.username,
-                password: _self.password
+                username: this.username,
+                password: this.password
             }
-            this.$http.post(url, config).then(function(res){
-                if(res.data.msgCode == "40000"){
-                    Cookies.set('user', _self.username);
-                    Cookies.set('password', _self.password);
-                    localStorage.setItem('realname', res.data.data.user.realname)
-                    localStorage.setItem('id', res.data.data.user.id)
-                    _self.getRole(localStorage.getItem("id"))
-                }else{
-                    _self.$toast.fail(res.data.msg)
+            try {
+                let { status, data } = await loginApi.userLogin(config)
+                if(status){
+                    Cookies.set('user', this.username);
+                    Cookies.set('password', this.password);
+                    this.$store.dispatch('set_realName', data.data.user.realname)
+                    this.$store.dispatch('set_id', data.data.user.id)
+                    let roleArray = await loginApi.checkUserRoleByUserId(data.data.user.id)
+                    this.$store.dispatch('set_roleArray', roleArray)
+                    this.check_unfinish()
                 }
-            }).catch(function(err){
-                _self.$toast.fail("网络异常！")
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async check_unfinish(){
+            try {
+                let {status, data} = await loginApi.checkLoginUserlegworkPunchcardStatus()
+                console.log(data)
+                if(status){
+                    if(data.data == "unfinished"){
+                        let {status:detailStatus, data:detail} = await loginApi.queryUnfinishedPunchCard()
+                        if(detailStatus){
+                            this.$store.dispatch("set_field_detail", detail.data.unfinishedPunchCard.date)
+                            this.to_leave()
+                        }
+                    }else if(data.data == "affirm"){
+                        setTimeout(() => {
+                            this.$router.push({
+                                name: 'accountComfirm'
+                            });
+                        }, 500)
+                    }else{
+                        this.to_index()
+                    }
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        to_index(){
+            this.roleArray.every((item, index)=>{
+                if(this.roleMapIndex.get(item.rolecode)){
+                    setTimeout(()=>{
+                        this.$router.push({
+                            name: this.roleMapIndex.get(item.rolecode)
+                        })
+                    },300)
+                    return false;
+                }else{
+                    if(index == this.roleArray.length - 1){
+                        setTimeout(()=>{
+                            this.$router.push({
+                                name: "otherIndex"
+                            })
+                        },300)
+                    }else{
+                        return true;
+                    }
+                }
+            })
+        },
+        to_leave(){
+            this.roleArray.every((item, index)=>{
+                if(this.roleMapLeave.get(item.rolecode)){
+                    setTimeout(()=>{
+                        this.$router.push({
+                            name: this.roleMapLeave.get(item.rolecode)
+                        })
+                    },300)
+                    return false;
+                }else{
+                    if(index == this.roleArray.length - 1){
+                        setTimeout(()=>{
+                            this.$router.push({
+                                name: "otherIndex"
+                            })
+                        },300)
+                    }else{
+                        return true;
+                    }
+                }
             })
         },
         //  打卡页面跳转

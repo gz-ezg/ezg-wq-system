@@ -129,10 +129,10 @@ const webpackConfig = merge(baseWebpackConfig, {
       // }
     ]),
 
-    new SentryCliPlugin({
-      include: './dist/',
-      // ignore: ['node_modules', 'webpack.config.js'],
-    }),
+    // new SentryCliPlugin({
+    //   include: './dist/',
+    //   // ignore: ['node_modules', 'webpack.config.js'],
+    // }),
   ]
 })
 

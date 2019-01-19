@@ -152,7 +152,7 @@ export default {
             this.$bus.emit('open_type_list',true)
         },
         openProduct(){
-            this.$bus.emit('open_Product_list',true)
+            this.$bus.emit('',true)
         },
         data_check(){
             let _self = this

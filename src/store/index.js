@@ -8,7 +8,14 @@ const store = new Vuex.Store({
         realName: "",
         id: "",
         roleArray: [],
-        fieldDetail: {}
+        fieldDetail: {},
+        company: {},
+        //  弹出层状态
+        companyModalStatus: false,
+        customerModalStatus: false,
+        fieldTypeModalStatus: false,
+        fieldType: {},
+        fieldTypeList: []
     },
     mutations: {
         set_realName(state, realName){
@@ -22,6 +29,24 @@ const store = new Vuex.Store({
         },
         set_field_detail(state, detail){
             state.fieldDetail = detail
+        },
+        set_company(state, company){
+            state.company = company
+        },
+        set_fieldTypeList(state, List){
+            state.fieldTypeList = List
+        },
+        change_company_modal_status(state){
+            state.companyModalStatus = !state.companyModalStatus
+        },
+        change_customer_modal_status(state){
+            state.customerModalStatus = !state.customerModalStatus
+        },
+        change_fieldType_modal_status(state){
+            state.fieldTypeModalStatus = !state.fieldTypeModalStatus
+        },
+        set_fieldType(state, fieldType){
+            state.fieldType = fieldType
         }
     },
     actions: {
@@ -36,6 +61,12 @@ const store = new Vuex.Store({
         },
         set_field_detail(context, detail){
             context.commit('set_field_detail', detail)
+        },
+        set_company(context, company){
+            context.commit('set_company', company)
+        },
+        set_fieldType(context, fieldType){
+            context.commit('set_fieldType', fieldType)
         }
     },
 });

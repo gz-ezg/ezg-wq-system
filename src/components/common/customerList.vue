@@ -1,17 +1,15 @@
 <template>
     <van-dialog
-        v-model="name_open"
+        :value="OpenCustomer"
         :show-confirm-button="false"
         :close-on-click-overlay="true"
+        show-cancel-button
+        @cancel="close"
         >
         <form action="/">
-            <van-search placeholder="请输入公司名称搜索" v-model="searchname" @click="search"/>
+            <van-search placeholder="请输入公司名称搜索" v-model="searchCompanyname" @click="get_data"/>
         </form>
-        <!-- <van-field
-            v-model="searchname"
-            placeholder="请输入公司名称"
-        /> -->
-        <van-radio-group v-model="select_company_id">
+        <van-radio-group :value="selectCompanyId">
             <van-cell-group>
                 <van-cell v-for="item in companyList" :key="item.companyid" clickable @click="choose(item)">
                     <van-col span="22"><div>{{item.name}}</div></van-col>
@@ -22,63 +20,47 @@
     </van-dialog>
 </template>
 
-<script>
-export default {
-    data(){
-        return {
-            searchname:"",
-            name_open:false,
-            select_company_id:"",
-            companyList:""
+<script lang="ts">
+import { Component, Vue, Watch } from 'vue-property-decorator'
+import * as commonApi from '@api/common/index.js'
+
+@Component
+export default class companyList extends Vue{
+    searchCompanyname:String = ""
+    companyList:Object[] = []
+    
+    get selectCompanyId(){
+        return this.$store.state.companyId
+    }
+    
+    get OpenCustomer(){
+        return this.$store.state.customerModalStatus
+    }
+
+    choose(company){
+        this.$store.dispatch("set_company", company)
+        this.$store.commit("change_customer_modal_status")
+    }
+    
+    close(){
+        this.$store.commit("change_customer_modal_status")
+    }
+
+    @Watch('searchCompanyname', {immediate: true})
+    async get_data(){
+        let config = {
+            params: {
+                companyname: this.searchCompanyname
+            }
         }
-    },
-    methods:{
-        search(){
-                let _self = this
-                let url = `api/legwork/apiQueryCompanyOrCustomerMsg`
-                let config = {
-                    params:{
-                        name: _self.searchname
-                    }
-                }
-
-                function success(res){
-                    _self.companyList = res.data.data                   
-                }
-
-                this.$Get(url, config, success)
-                // this.$http.get(url, config).then(function(res){
-                //     if(res.data.msgCode == "40000"){
-                //         _self.companyList = res.data.data                   
-                //     }else{
-                //         // alert(res.data.msgCode)
-                //         _self.$toast.fail('系统错误！')                      
-                //     }
-                // }).catch(function(err){
-                //     _self.$toast.fail('网络错误！')
-                // })
-        },
-        choose(e){
-            this.select_company_id = e.companyid
-            this.$bus.emit('update_info',e)
-            this.name_open = false
-        },
-    },
-    created(){
-        let _self = this
-        this.$bus.on('open_name_list',(e)=>{
-            _self.name_open = true
-            _self.search()
-        })
-    },
-    watch:{
-        'searchname':'search'
+        let data = await commonApi.fieldCompanyList(config)
+        this.companyList = data
     }
 }
 </script>
 
 <style>
-    .van-field__clear, .van-field__icon{
-        margin-right:0px
-    }
+.van-field__clear, .van-field__icon{
+    margin-right:0px
+}
 </style>

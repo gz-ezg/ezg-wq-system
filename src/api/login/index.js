@@ -6,10 +6,10 @@ import { AjaxGet, AjaxDic, AjaxPost } from '../index'
  * @param {*} success 
  * @param {*} fail 
  */
-function userLogin(config, success, fail){
+function userLogin(config){
     let url = 'user/login'
     return new Promise((resolve, reject) => {
-        resolve(AjaxPost(url, config, success, fail))
+        resolve(AjaxPost(url,config))
     }).catch((err) => {
         return err
     })
@@ -22,10 +22,10 @@ function userLogin(config, success, fail){
  * @param {*} success 
  * @param {*} fail 
  */
-function checkUserRoleByUserId(id, config, success, fail){
+function checkUserRoleByUserId(id){
     let url = 'user/checkUserRoleByUserId?userId=' + id
     return new Promise((resolve, reject) => {
-        resolve(AjaxGet(url, config, success, fail))
+        resolve(AjaxGet(url))
     }).catch((err) => {
         return err
     })
@@ -37,10 +37,10 @@ function checkUserRoleByUserId(id, config, success, fail){
  * @param {*} success 
  * @param {*} fail 
  */
-function checkLoginUserlegworkPunchcardStatus(config, success, fail){
+function checkLoginUserlegworkPunchcardStatus(){
     let url = `legwork/apiCheckLoginUserlegworkPunchcardStatus`
     return new Promise((resolve, reject) => {
-        resolve(AjaxPost(url, config, success, fail))
+        resolve(AjaxPost(url))
     }).catch((err) => {
         return err
     })
@@ -52,10 +52,19 @@ function checkLoginUserlegworkPunchcardStatus(config, success, fail){
  * @param {*} success 
  * @param {*} fail 
  */
-function queryUnfinishedPunchCard(config, success, fail){
+function queryUnfinishedPunchCard(){
     let url = `legwork/apiQueryUnfinishedPunchCard`
     return new Promise((resolve, reject) => {
-        resolve(AjaxPost(url, config, success, fail))
+        resolve(AjaxPost(url))
+    }).catch((err) => {
+        return err
+    })
+}
+
+function loginByWechatCode(config){
+    let url = `legwork/apiLoginByWechatCode`
+    return new Promise((resolve, reject) => {
+        resolve(AjaxPost(url, config))
     }).catch((err) => {
         return err
     })
@@ -65,5 +74,6 @@ export {
     userLogin,
     checkUserRoleByUserId,
     checkLoginUserlegworkPunchcardStatus,
-    queryUnfinishedPunchCard
+    queryUnfinishedPunchCard,
+    loginByWechatCode
 }

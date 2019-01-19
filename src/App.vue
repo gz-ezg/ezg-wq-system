@@ -5,14 +5,24 @@
       text="本次更新内容：离开打卡时必须上传图片！"
     /> -->
     <router-view/>
+    <company-list></company-list>
+    <customer-list></customer-list>
+    <type-list></type-list>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import VConsole from 'vconsole/dist/vconsole.min.js'
-
+import companyList from '@/components/common/companyList.vue'
+import customerList from '@/components/common/customerList.vue'
+import TypeList from '@/components/common/typeList.vue'
 export default {
   name: 'App',
+  components: {
+    companyList,
+    customerList,
+    TypeList
+  },
   created(){
     // if(this.time){
       // let vConsole = new VConsole()

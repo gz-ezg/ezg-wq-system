@@ -15,7 +15,9 @@ const store = new Vuex.Store({
         customerModalStatus: false,
         fieldTypeModalStatus: false,
         fieldType: {},
-        fieldTypeList: []
+        fieldTypeList: [],
+        showImg: [],
+        uploadImg: []
     },
     mutations: {
         set_realName(state, realName){
@@ -47,6 +49,12 @@ const store = new Vuex.Store({
         },
         set_fieldType(state, fieldType){
             state.fieldType = fieldType
+        },
+        push_img(state, img){
+            state.showImg.push(img)
+        },
+        push_upload_img(state, img){
+            state.uploadImg.push(img)
         }
     },
     actions: {

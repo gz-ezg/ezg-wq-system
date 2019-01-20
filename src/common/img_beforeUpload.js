@@ -6,17 +6,18 @@
  * @param {图片对象} file
  * @param {压缩后图片置入} files_array
  */
-export function yasuo(file,files_array){
+export function yasuo(file){
     let _self = this
     let ready = new FileReader()
     ready.readAsDataURL(file)
-    ready.onload = function(){
-        var re = this.result
-        // console.log(re)
-        canvasDataURL(re,function(e){
-            files_array.push(e)
-        })
-    }
+    return new Promise((resolve, rejects)=>{
+        ready.onload = function(){
+            var re = this.result
+            canvasDataURL(re,function(e){
+                resolve(e)
+            })
+        }
+    })
 }
 
 function canvasDataURL(path,callback){

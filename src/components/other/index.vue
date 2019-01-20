@@ -30,7 +30,7 @@
                     />
                 </van-cell-group>
                 
-                <div style="width:80%;margin:auto;margin-top:0.5rem">
+                <!-- <div style="width:80%;margin:auto;margin-top:0.5rem">
                     <center>
                         <van-uploader accept="image/*" :before-read="upload" capture="camera" style="display:flex;justify-content:center;align-items:center">
                             <van-icon name="photograph" style="font-size:0.5rem;line-height:0.5rem" /><span style="font-size:0.333rem;line-height:0.333rem;padding-left:0.2rem">点击拍摄照片</span>
@@ -54,23 +54,19 @@
                             autosize
                         />
                     </van-cell-group>
-                </div>
+                </div> -->
+                <upload-img></upload-img>
         </van-row>
         <van-tabbar style="margin-top:1rem;">
             <van-button type="primary" bottom-action style="font-size:20px;border-radius:5px" :loading="button_loading" @click="data_check">开始打卡</van-button>
         </van-tabbar>
-        <!--
-        <work-order-list></work-order-list>
-        <type-list :fieldType="fieldType"></type-list> -->
         </van-row>
     </van-row>
 </template>
 
 <script lang="ts">
-// import WorkOrderList from '../common/workOrderList'
-// import TypeList from '../common/typeList'
 import {yasuo} from '../../common/img_beforeUpload'
-
+import uploadImg from '../common/uploadImg.vue'
 // import schema from 'async-validator'
 
 import wxLocal from '../common/local.js';
@@ -79,7 +75,10 @@ import { Component, Vue, Watch } from 'vue-property-decorator'
 import * as commonApi from '@api/common/index'
 
 @Component({
-    mixins: [wxLocal]
+    mixins: [wxLocal],
+    components: {
+        uploadImg
+    }
 })
 export default class OtherIndex extends Vue {
     show_img = []
@@ -105,7 +104,7 @@ export default class OtherIndex extends Vue {
 
     upload(e){
         let _self = this
-        let img = yasuo(e,_self.img_array)
+        let img = yasuo(e)
         let reader = new FileReader()
         reader.readAsDataURL(e)
         let filename = e.name

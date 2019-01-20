@@ -24,10 +24,14 @@
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import * as commonApi from '@api/common/index.js'
 
+//  枚举类型
+enum Color {Red, Green, Blue}
+
 @Component
 export default class companyList extends Vue{
     searchCompanyname:String = ""
-    companyList:Object[] = []
+    companyList:Array<Object> = []
+    // companyList:Object[] = []
     
     get selectCompany(){
         return this.$store.state.company

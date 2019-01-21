@@ -1,21 +1,32 @@
-import Vue from 'vue'
-import Component from 'vue-class-component'
+<template>
+  <div>
+    <div style="width:80%;margin:auto;margin-top:2rem" @click="get_wx_local">
+      <van-cell-group v-if="localLoading">
+        <center style="padding:0.25rem"><van-loading type="spinner" size="30px" /></center>
+      </van-cell-group>
+      <van-cell-group v-else>
+        <center style="padding-top:0.5rem;display: flex;justify-content:center;align-items:center;"><van-icon name="aim" style="padding-right:0.1333rem;font-size:0.5rem"/><span style="font-size:0.333rem">当前定位地址</span></center>
+        <van-cell :value="addr"  style="text-align:center" id="address"/>
+      </van-cell-group>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+import { yasuo } from './img_beforeUpload'
 import * as commonApi from '@api/common/index.js'
 
-export default  {
-  name: "wx_local",
-  data() {
-    return {
-      //  打卡备注
-      memo: "",
-      addr: "暂无",
-      localLoading: true,
-      returnNumber : 0
-    }
-  },
-  methods: {
-    async wx_init(){
-      let _self = this
+@Component
+export default class OtherIndex extends Vue {
+  localLoading: boolean = false
+  returnNumber = 0
+  get addr(){
+    return this.$store.state.fieldDetail.addr
+  }
+
+  async wx_init(){
+    let _self = this
       let config = {
         params:{
             agentId: "1000028",
@@ -35,16 +46,16 @@ export default  {
       wx.error(function(res){
         console.log(res)
         _self.$toast.fail(res.errMsg)
-        _self.returnNumber++;
+        _self.returnNumber = _self.returnNumber + 1
         if(_self.returnNumber < 5){
           _self.wx_init()
         }else{
           _self.$toast.fail("js-sdk异常，已超过最大重试次数 ！")
         }
       });
-    },
+  }
 
-    get_wx_local(){
+  get_wx_local(){
       let _self = this
       _self.localLoading = true
       wx.ready(function(){
@@ -55,16 +66,14 @@ export default  {
               }
           });
       });
-    },
-
-    async get_real_name(res){
+    }
+  async get_real_name(res){
       let _self = this
       var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
       var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
       var speed = res.speed; // 速度，以米/每秒计
       var accuracy = res.accuracy; // 位置精度
 
-      // let locUrl = 'api/system/wechat/address/location'
       let config = {
         params:{
             lat: latitude,
@@ -77,18 +86,23 @@ export default  {
       let temp = JSON.parse(data)
       console.log(temp)
       if(temp.result.hasOwnProperty("formatted_addresses")){
-        this.addr = temp.result.address + `(${temp.result.formatted_addresses.recommend})`
+        this.$store.commit("update_addr", temp.result.address + `(${temp.result.formatted_addresses.recommend})`)
       }else{
-        this.addr = temp.result.address
+        this.$store.commit("update_addr", temp.result.address)
       }
     }
-  },
-  async created() {
+
+    async created() {
     try {
       await this.wx_init()
       await this.get_wx_local()
     } catch (error) {
       this.$toast.fail("获取地址失败！请退出重试！")
     }
-  },
+  }
 }
+</script>
+
+<style>
+
+</style>

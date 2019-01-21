@@ -17,7 +17,6 @@
 
 <script>
 export default {
-    // props:['fieldType'],
     data(){
         return {
             searchcompanyname:"",

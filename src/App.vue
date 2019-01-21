@@ -13,9 +13,9 @@
 
 <script lang="ts">
 import VConsole from 'vconsole/dist/vconsole.min.js'
-import companyList from '@/components/common/companyList.vue'
-import customerList from '@/components/common/customerList.vue'
-import TypeList from '@/components/common/typeList.vue'
+import companyList from '@/components/common/function-components/companyList.vue'
+import customerList from '@/components/common/function-components/customerList.vue'
+import TypeList from '@/components/common/function-components/typeList.vue'
 export default {
   name: 'App',
   components: {

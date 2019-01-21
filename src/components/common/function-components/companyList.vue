@@ -31,14 +31,13 @@ enum Color {Red, Green, Blue}
 export default class companyList extends Vue{
     searchCompanyname:String = ""
     companyList:Array<Object> = []
-    // companyList:Object[] = []
 
     get selectCompany(){
         return this.$store.state.company
     }
 
     get OpenCompany(){
-        return this.$store.state.companyModalStatus
+        return this.$store.state.modalStatus.companyModalStatus
     }
 
     choose(company){

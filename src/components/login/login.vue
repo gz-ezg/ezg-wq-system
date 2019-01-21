@@ -59,20 +59,22 @@ export default class Login extends Vue {
     ])
 
     get roleArray(){
-        return this.$store.state.roleArray
+        return this.$store.state.user.roleArray
     }
     async login(){
         let config = {
             username: this.username,
             password: this.password
         }
+
+        console.log(this.$store)
         try {
             let { status, data } = await loginApi.userLogin(config)
             if(status){
                 Cookies.set('user', this.username);
                 Cookies.set('password', this.password);
-                this.$store.dispatch('set_realName', data.data.user.realname)
-                this.$store.dispatch('set_id', data.data.user.id)
+                this.$store.commit('set_realName', data.data.user.realname)
+                this.$store.commit('set_id', data.data.user.id)
                 this.get_role(data.data.user.id)
             }
         } catch (error) {
@@ -82,7 +84,7 @@ export default class Login extends Vue {
 
     async get_role(id){
         let roleArray = await loginApi.checkUserRoleByUserId(id)
-        this.$store.dispatch('set_roleArray', roleArray)
+        this.$store.commit('set_roleArray', roleArray)
         this.check_unfinish()
     }
     async check_unfinish(){
@@ -93,7 +95,7 @@ export default class Login extends Vue {
                 if(data.data == "unfinished"){
                     let {status:detailStatus, data:detail} = await loginApi.queryUnfinishedPunchCard()
                     if(detailStatus){
-                        this.$store.dispatch("set_field_detail", detail.data.unfinishedPunchCard.date)
+                        this.$store.commit("set_field_detail", detail.data.unfinishedPunchCard.date)
                         this.to_leave()
                     }
                 }else if(data.data == "affirm"){
@@ -162,8 +164,8 @@ export default class Login extends Vue {
         if( status ){
             Cookies.set('user', this.username);
             Cookies.set('password', this.password);
-            this.$store.dispatch('set_realName', data.data.user.realname)
-            this.$store.dispatch('set_id', data.data.user.id)
+            this.$store.commit('set_realName', data.data.user.realname)
+            this.$store.commit('set_id', data.data.user.id)
             this.get_role(data.data.user.id)
         }else{
             this.$toast.fail("免登陆失效，请登录！")

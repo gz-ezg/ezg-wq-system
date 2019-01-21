@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import {yasuo} from '../../common/img_beforeUpload'
+import { yasuo } from './img_beforeUpload'
 
 @Component
 export default class OtherIndex extends Vue {

@@ -1,6 +1,6 @@
 <template>
     <van-dialog
-        :value="OpenCompany"
+        :value="OpenCustomer"
         :show-confirm-button="false"
         :close-on-click-overlay="true"
         show-cancel-button
@@ -9,10 +9,10 @@
         <form action="/">
             <van-search placeholder="请输入公司名称搜索" v-model="searchCompanyname" @click="get_data"/>
         </form>
-        <van-radio-group :value="selectCompany.companyid">
+        <van-radio-group :value="selectCompanyId">
             <van-cell-group>
                 <van-cell v-for="item in companyList" :key="item.companyid" clickable @click="choose(item)">
-                    <van-col span="22"><div>{{item.companyname}}</div></van-col>
+                    <van-col span="22"><div>{{item.name}}</div></van-col>
                     <van-col span="2"><van-radio :name="item.companyid" /></van-col>
                 </van-cell>
             </van-cell-group>
@@ -24,30 +24,26 @@
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import * as commonApi from '@api/common/index.js'
 
-//  枚举类型
-enum Color {Red, Green, Blue}
-
 @Component
 export default class companyList extends Vue{
     searchCompanyname:String = ""
-    companyList:Array<Object> = []
-    // companyList:Object[] = []
+    companyList:Object[] = []
 
-    get selectCompany(){
-        return this.$store.state.company
+    get selectCompanyId(){
+        return this.$store.state.companyId
     }
 
-    get OpenCompany(){
-        return this.$store.state.companyModalStatus
+    get OpenCustomer(){
+        return this.$store.state.modalStatus.customerModalStatus
     }
 
     choose(company){
         this.$store.commit("set_company", company)
-        this.$store.commit("change_company_modal_status")
+        this.$store.commit("change_customer_modal_status")
     }
 
     close(){
-        this.$store.commit("change_company_modal_status")
+        this.$store.commit("change_customer_modal_status")
     }
 
     @Watch('searchCompanyname', {immediate: true})

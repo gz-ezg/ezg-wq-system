@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="width:80%;margin:auto;margin-top:2rem" @click="get_wx_local">
+    <div style="width:80%;margin:auto;margin-top:1rem" @click="get_wx_local">
       <van-cell-group v-if="localLoading">
         <center style="padding:0.25rem"><van-loading type="spinner" size="30px" /></center>
       </van-cell-group>

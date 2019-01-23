@@ -9,7 +9,7 @@
         <form action="/">
             <van-search placeholder="请输入公司名称搜索" v-model="searchCompanyname" @click="get_data"/>
         </form>
-        <van-radio-group :value="selectCompanyId">
+        <van-radio-group :value="selectCompany.companyid">
             <van-cell-group>
                 <van-cell v-for="item in companyList" :key="item.companyid" clickable @click="choose(item)">
                     <van-col span="22"><div>{{item.name}}</div></van-col>
@@ -29,8 +29,8 @@ export default class companyList extends Vue{
     searchCompanyname:String = ""
     companyList:Object[] = []
 
-    get selectCompanyId(){
-        return this.$store.state.companyId
+    get selectCompany(){
+        return this.$store.state.fieldDetail.company
     }
 
     get OpenCustomer(){

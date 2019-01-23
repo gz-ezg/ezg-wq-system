@@ -67,7 +67,7 @@ export default class Login extends Vue {
             password: this.password
         }
 
-        console.log(this.$store)
+        // console.log(this.$store)
         try {
             let { status, data } = await loginApi.userLogin(config)
             if(status){
@@ -93,11 +93,10 @@ export default class Login extends Vue {
             console.log(data)
             if(status){
                 if(data.data == "unfinished"){
-                    let {status:detailStatus, data:detail} = await loginApi.queryUnfinishedPunchCard()
-                    if(detailStatus){
-                        this.$store.commit("set_field_detail", detail.data.unfinishedPunchCard.date)
-                        this.to_leave()
-                    }
+                    // let {status:detailStatus, data:detail} = await loginApi.queryUnfinishedPunchCard()
+                    // if(detailStatus){
+                    this.to_leave()
+                    // }
                 }else if(data.data == "affirm"){
                     setTimeout(() => {
                         this.$router.push({
@@ -147,7 +146,7 @@ export default class Login extends Vue {
                 if(index == this.roleArray.length - 1){
                     setTimeout(()=>{
                         this.$router.push({
-                            name: "otherIndex"
+                            name: "otherLeave"
                         })
                     },300)
                 }else{

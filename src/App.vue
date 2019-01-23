@@ -5,9 +5,14 @@
       text="本次更新内容：离开打卡时必须上传图片！"
     /> -->
     <router-view/>
-    <company-list></company-list>
-    <customer-list></customer-list>
-    <type-list></type-list>
+    <!--
+      最佳解决方案，嵌套路由
+    -->
+    <div v-if="id">
+      <company-list></company-list>
+      <customer-list></customer-list>
+      <type-list></type-list>
+    </div>
   </div>
 </template>
 
@@ -31,6 +36,11 @@ export default {
   data(){
     return {
       time: 0
+    }
+  },
+  computed:{
+    id(){
+      return this.$store.state.user.id
     }
   },
   methods: {

@@ -33,7 +33,7 @@ export default class companyList extends Vue{
     companyList:Array<Object> = []
 
     get selectCompany(){
-        return this.$store.state.company
+        return this.$store.state.fieldDetail.company
     }
 
     get OpenCompany(){

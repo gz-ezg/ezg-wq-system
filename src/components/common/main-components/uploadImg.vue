@@ -42,7 +42,7 @@ export default class OtherIndex extends Vue {
         }
     }
     get showImg(){
-        return this.$store.state.showImg
+        return this.$store.state.fieldDetail.showImg
     }
     remove(index){
       this.$store.commit("remove_upload_img", index)

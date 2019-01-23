@@ -4,13 +4,13 @@ import Router from 'vue-router'
 const marketIndex = () => import(/* webpackChunkName: "market" */ '@/components/market/index')
 const marketLeave = () => import(/* webpackChunkName: "market" */ '@/components/market/leave')
 
-const commericalIndex = () => import(/* webpackChunkName: "commercial" */ '@/components/commerical/index')
-const commericalLeave = () => import(/* webpackChunkName: "commercial" */ '@/components/commerical/leave')
+// const commericalIndex = () => import(/* webpackChunkName: "commercial" */ '@/components/commerical/index')
+// const commericalLeave = () => import(/* webpackChunkName: "commercial" */ '@/components/commerical/leave')
 
-const accountIndex = () => import(/* webpackChunkName: "account" */ '@/components/account/index')
-const accountLeave = () => import(/* webpackChunkName: "account" */ '@/components/account/leave')
-const accountComfirm = () => import(/* webpackChunkName: "account" */ '@/components/account/comfirm')
-const comfirmsuccess = () => import(/* webpackChunkName: "account" */ '@/components/common/success_comfirm')
+// const accountIndex = () => import(/* webpackChunkName: "account" */ '@/components/account/index')
+// const accountLeave = () => import(/* webpackChunkName: "account" */ '@/components/account/leave')
+// const accountComfirm = () => import(/* webpackChunkName: "account" */ '@/components/account/comfirm')
+// const comfirmsuccess = () => import(/* webpackChunkName: "account" */ '@/components/common/success_comfirm')
 
 const planIndex = () => import(/* webpackChunkName: "plan" */ '@/components/plan/index')
 const planLeave = () => import(/* webpackChunkName: "plan" */ '@/components/plan/leave')
@@ -46,38 +46,38 @@ export default new Router({
       name:'marketLeave',
       component: marketLeave
     },
-    //  商事部部分
-    {
-      path:'/commericalIndex',
-      name:'commericalIndex',
-      component: commericalIndex
-    },
-    {
-      path:'/commericalLeave',
-      name:'commericalLeave',
-      component: commericalLeave
-    },
-    //  会计部门
-    {
-      path:'/accountIndex',
-      name:'accountIndex',
-      component:accountIndex
-    },
-    {
-      path:'/accountLeave',
-      name:'accountLeave',
-      component:accountLeave
-    },
-    {
-      path:'/accountComfirm',
-      name:'accountComfirm',
-      component:accountComfirm
-    },
-    {
-      path:'/comfirmsuccess',
-      name:'comfirmsuccess',
-      component:comfirmsuccess
-    },
+    // //  商事部部分
+    // {
+    //   path:'/commericalIndex',
+    //   name:'commericalIndex',
+    //   component: commericalIndex
+    // },
+    // {
+    //   path:'/commericalLeave',
+    //   name:'commericalLeave',
+    //   component: commericalLeave
+    // },
+    // //  会计部门
+    // {
+    //   path:'/accountIndex',
+    //   name:'accountIndex',
+    //   component:accountIndex
+    // },
+    // {
+    //   path:'/accountLeave',
+    //   name:'accountLeave',
+    //   component:accountLeave
+    // },
+    // {
+    //   path:'/accountComfirm',
+    //   name:'accountComfirm',
+    //   component:accountComfirm
+    // },
+    // {
+    //   path:'/comfirmsuccess',
+    //   name:'comfirmsuccess',
+    //   component:comfirmsuccess
+    // },
     //  企划部门
     {
       path:'/planIndex',

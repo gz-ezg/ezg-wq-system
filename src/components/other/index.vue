@@ -2,15 +2,6 @@
     <van-row style="overflow-x: hidden">
         <van-row style="padding-bottom:2rem">
             <van-nav-bar title="普通外勤打卡" left-arrow @click-left="$backTo()"/>
-                <!-- <div style="width:80%;margin:auto;margin-top:2rem" @click="get_wx_local">
-                    <van-cell-group v-if="localLoading">
-                      <center style="padding:0.25rem"><van-loading type="spinner" size="30px" /></center>
-                    </van-cell-group>
-                    <van-cell-group v-else>
-                      <center style="padding-top:0.5rem;display: flex;justify-content:center;align-items:center;"><van-icon name="aim" style="padding-right:0.1333rem;font-size:0.5rem"/><span style="font-size:0.333rem">当前定位地址</span></center>
-                        <van-cell :value="addr"  style="text-align:center" id="address"/>
-                    </van-cell-group>
-                </div> -->
                 <local-init></local-init>
                 <van-cell-group style="width:80%;margin:auto;margin-top:1rem">
                     <van-field
@@ -27,7 +18,7 @@
                         clearable
                         readonly
                         placeholder="请选择外勤类型"
-                        @click.native="open_fieldType_select(company)"
+                        @click.native="open_fieldType_select"
                     />
                 </van-cell-group>
                 <upload-img></upload-img>
@@ -51,19 +42,16 @@
 </template>
 
 <script lang="ts">
-// import {yasuo} from '../../common/img_beforeUpload'
 import uploadImg from '../common/main-components/uploadImg.vue'
 import localInit from '../common/main-components/localInit.vue'
 import schema from 'async-validator'
 
-import wxLocal from '../common/local.js';
-
 import { Component, Vue, Watch, Mixins } from 'vue-property-decorator'
 import * as commonApi from '@api/common/index'
 import * as clockApi from '@api/clock/index'
+import { Toast } from 'vant';
 
 @Component({
-    // mixins: [wxLocal],
     components: {
         uploadImg,
         localInit
@@ -74,10 +62,13 @@ export default class OtherIndex extends Vue {
     memo = ""
 
     get company(){
-        return this.$store.state.company
+        return this.$store.state.fieldDetail.company
     }
     get fieldType(){
-        return this.$store.state.fieldType
+        return this.$store.state.fieldDetail.fieldType
+    }
+    get uploadImg(){
+      return this.$store.state.fieldDetail.uploadImg
     }
     open_company_select(id){
         this.$store.commit("change_company_modal_status")
@@ -111,7 +102,7 @@ export default class OtherIndex extends Vue {
         {
           company: _self.company.companyid,
           type_typecode: _self.fieldType.typecode,
-          img_array: _self.$store.state.showImg,
+          img_array: _self.$store.state.fieldDetail.showImg,
           // addr: _self.$store.state.filedDetail.addr,
         }, (errors, fields) => {
         if(errors) {
@@ -132,58 +123,25 @@ export default class OtherIndex extends Vue {
       formdata.append('customerid', _self.company.customerid)
       formdata.append('fieldtype', _self.fieldType.typecode)
       formdata.append('clockshows',_self.memo)
+      for(let i = 0;i<_self.uploadImg.length;i++){
+        formdata.append('file',_self.uploadImg[i],"file_" + new Date() + ".jpg")
+      }
       let { status, data} = await clockApi.saveLegworkVisitMsg(formdata)
       if(status){
         console.log(data)
-      }else{
-
+        _self.$toast.loading({
+          message: "正在跳转至离开打卡界面...",
+          duration: 1000
+        })
+        this.$store.commit("remove_all")
+        setTimeout(()=>{
+          this.$router.push({
+            name: "otherLeave"
+          })
+        }, 1000)
       }
     }
 }
-
-//         submit(){
-//             let _self = this
-//             let url = `api/zuul/legwork/apiSaveLegworkVisitMsg`
-//             _self.buttonLoading = true
-//             let formdata = new FormData()
-//             formdata.append('companyid', _self.company_id)
-//             formdata.append('address1', _self.addr)
-//             formdata.append('customerid', _self.name_id)
-//             formdata.append('fieldtype', _self.type_typecode)
-//             formdata.append('clockshows',_self.clockshows)
-
-//             for(let i = 0;i<_self.img_array.length;i++){
-//                 formdata.append('file',_self.img_array[i],"file_" + Date.parse(new Date()) + ".jpg")
-//             }
-
-//             this.$http.post(url,formdata).then(function(res){
-//                 if(res.data.msgCode == "40000"){
-//                     localStorage.setItem('companyname',_self.company)
-//                     localStorage.setItem('field_id',res.data.data.legworkId)
-//                     localStorage.setItem('product',_self.workorder)
-//                     //  计时器开始
-//                     let start_time = new Date()
-//                     localStorage.setItem('startTime',start_time.getTime())
-//                     _self.buttonLoading = false
-//                     _self.$router.push({
-//                         name:'otherLeave'
-//                     })
-//                 }else{
-//                     alert(res.data.msg)
-//                     _self.$toast.fail("系统错误！")
-//                     _self.buttonLoading = false
-//                 }
-//             }).catch(function(err){
-//                     alert(err)
-//                     _self.$toast.fail("网络异常！")
-//                     _self.buttonLoading = false
-//             })
-
-
-//         },
-//
-
-//     },
 </script>
 
 <style>

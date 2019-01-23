@@ -15,6 +15,26 @@ function saveLegworkVisitMsg(config){
     })
 }
 
+function saveLegworkLeaveVisitMsg(config){
+  let url = 'zuul/legwork/apiSaveLegworkLeaveVisitMsg'
+  return new Promise((resolve, reject) => {
+      resolve(AjaxPost(url,config))
+  }).catch((err) => {
+      return err
+  })
+}
+
+function queryUnfinishedPunchCard(){
+  let url = `legwork/apiQueryUnfinishedPunchCard`
+  return new Promise((resolve, reject) => {
+      resolve(AjaxPost(url))
+  }).catch((err) => {
+      return err
+  })
+}
+
 export {
-  saveLegworkVisitMsg
+  saveLegworkVisitMsg,
+  saveLegworkLeaveVisitMsg,
+  queryUnfinishedPunchCard
 }

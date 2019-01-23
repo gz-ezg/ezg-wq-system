@@ -27,10 +27,10 @@ export default class companyList extends Vue{
         return this.$store.state.modalStatus.fieldTypeModalStatus
     }
     get fieldTypeList(){
-        return this.$store.state.fieldTypeList
+        return this.$store.state.fieldDetail.fieldTypeList
     }
     get fieldType(){
-        return this.$store.state.fieldType
+        return this.$store.state.fieldDetail.fieldType
     }
 
     choose(type){

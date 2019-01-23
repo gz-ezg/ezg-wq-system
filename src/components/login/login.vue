@@ -93,10 +93,7 @@ export default class Login extends Vue {
             console.log(data)
             if(status){
                 if(data.data == "unfinished"){
-                    // let {status:detailStatus, data:detail} = await loginApi.queryUnfinishedPunchCard()
-                    // if(detailStatus){
                     this.to_leave()
-                    // }
                 }else if(data.data == "affirm"){
                     setTimeout(() => {
                         this.$router.push({

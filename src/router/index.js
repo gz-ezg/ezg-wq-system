@@ -7,10 +7,10 @@ const marketLeave = () => import(/* webpackChunkName: "market" */ '@/components/
 // const commericalIndex = () => import(/* webpackChunkName: "commercial" */ '@/components/commerical/index')
 // const commericalLeave = () => import(/* webpackChunkName: "commercial" */ '@/components/commerical/leave')
 
-// const accountIndex = () => import(/* webpackChunkName: "account" */ '@/components/account/index')
-// const accountLeave = () => import(/* webpackChunkName: "account" */ '@/components/account/leave')
-// const accountComfirm = () => import(/* webpackChunkName: "account" */ '@/components/account/comfirm')
-// const comfirmsuccess = () => import(/* webpackChunkName: "account" */ '@/components/common/success_comfirm')
+const accountIndex = () => import(/* webpackChunkName: "account" */ '@/components/account/index')
+const accountLeave = () => import(/* webpackChunkName: "account" */ '@/components/account/leave')
+const accountComfirm = () => import(/* webpackChunkName: "account" */ '@/components/account/comfirm')
+const comfirmsuccess = () => import(/* webpackChunkName: "account" */ '@/components/common/success_comfirm')
 
 const planIndex = () => import(/* webpackChunkName: "plan" */ '@/components/plan/index')
 const planLeave = () => import(/* webpackChunkName: "plan" */ '@/components/plan/leave')
@@ -58,26 +58,26 @@ export default new Router({
     //   component: commericalLeave
     // },
     // //  会计部门
-    // {
-    //   path:'/accountIndex',
-    //   name:'accountIndex',
-    //   component:accountIndex
-    // },
-    // {
-    //   path:'/accountLeave',
-    //   name:'accountLeave',
-    //   component:accountLeave
-    // },
-    // {
-    //   path:'/accountComfirm',
-    //   name:'accountComfirm',
-    //   component:accountComfirm
-    // },
-    // {
-    //   path:'/comfirmsuccess',
-    //   name:'comfirmsuccess',
-    //   component:comfirmsuccess
-    // },
+    {
+      path:'/accountIndex',
+      name:'accountIndex',
+      component:accountIndex
+    },
+    {
+      path:'/accountLeave',
+      name:'accountLeave',
+      component:accountLeave
+    },
+    {
+      path:'/accountComfirm',
+      name:'accountComfirm',
+      component:accountComfirm
+    },
+    {
+      path:'/comfirmsuccess',
+      name:'comfirmsuccess',
+      component:comfirmsuccess
+    },
     //  企划部门
     {
       path:'/planIndex',

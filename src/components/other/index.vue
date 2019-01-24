@@ -119,7 +119,7 @@ export default class OtherIndex extends Vue {
       this.buttonLoading = true
       let formdata = new FormData()
       formdata.append('companyid', _self.company.companyid)
-      formdata.append('address1', "1234")
+      formdata.append('address1', this.$store.state.fieldDetail.addr)
       formdata.append('customerid', _self.company.customerid)
       formdata.append('fieldtype', _self.fieldType.typecode)
       formdata.append('clockshows',_self.memo)

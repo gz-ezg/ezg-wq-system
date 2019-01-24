@@ -4,8 +4,8 @@ import Router from 'vue-router'
 const marketIndex = () => import(/* webpackChunkName: "market" */ '@/components/market/index')
 const marketLeave = () => import(/* webpackChunkName: "market" */ '@/components/market/leave')
 
-// const commericalIndex = () => import(/* webpackChunkName: "commercial" */ '@/components/commerical/index')
-// const commericalLeave = () => import(/* webpackChunkName: "commercial" */ '@/components/commerical/leave')
+const commericalIndex = () => import(/* webpackChunkName: "commercial" */ '@/components/commerical/index')
+const commericalLeave = () => import(/* webpackChunkName: "commercial" */ '@/components/commerical/leave')
 
 const accountIndex = () => import(/* webpackChunkName: "account" */ '@/components/account/index')
 const accountLeave = () => import(/* webpackChunkName: "account" */ '@/components/account/leave')
@@ -46,17 +46,17 @@ export default new Router({
       name:'marketLeave',
       component: marketLeave
     },
-    // //  商事部部分
-    // {
-    //   path:'/commericalIndex',
-    //   name:'commericalIndex',
-    //   component: commericalIndex
-    // },
-    // {
-    //   path:'/commericalLeave',
-    //   name:'commericalLeave',
-    //   component: commericalLeave
-    // },
+    //  商事部部分
+    {
+      path:'/commericalIndex',
+      name:'commericalIndex',
+      component: commericalIndex
+    },
+    {
+      path:'/commericalLeave',
+      name:'commericalLeave',
+      component: commericalLeave
+    },
     // //  会计部门
     {
       path:'/accountIndex',

@@ -2,9 +2,9 @@ import { AjaxGet, AjaxDic, AjaxPost } from '../index'
 
 /**
  * 登录
- * @param {*} config 
- * @param {*} success 
- * @param {*} fail 
+ * @param {*} config
+ * @param {*} success
+ * @param {*} fail
  */
 function fieldCompanyList(config){
     let url = 'legwork/apiQueryCompanyOrCustomerMsg'
@@ -41,9 +41,30 @@ function getRealAdd(config){
         return err
     })
 }
+
+function getWorkOrderByCompanyId(config){
+  let url = `legwork/apiCheckWorkorderByCompanyid`
+  return new Promise((resolve, reject) => {
+      resolve(AjaxPost(url,config))
+  }).catch((err) => {
+      return err
+  })
+}
+
+function getAccountList(config){
+  let url = `legwork/apiCheckAccountMsg`
+  return new Promise((resolve, reject) => {
+      resolve(AjaxPost(url, config))
+  }).catch((err) => {
+      return err
+  })
+}
+
 export {
     fieldCompanyList,
     getDictionary,
     getWxTicker,
-    getRealAdd
+    getRealAdd,
+    getWorkOrderByCompanyId,
+    getAccountList
 }

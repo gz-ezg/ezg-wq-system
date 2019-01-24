@@ -126,6 +126,10 @@ const webpackConfig = merge(baseWebpackConfig, {
       {
         from: path.resolve(__dirname,'../WW_verify_z793ZwW9R5YytI0x.txt'),
         to: config.build.assetsRoot
+      },
+      {
+        from: path.resolve(__dirname,'../favicon.ico'),
+        to: config.build.assetsRoot
       }
     ]),
 

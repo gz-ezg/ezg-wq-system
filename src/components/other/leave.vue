@@ -64,7 +64,7 @@ export default class OtherLeave extends Vue {
         {
           remark: _self.remark,
           img_array: _self.uploadImg,
-          // addr: _self.addr
+          // addr: _self.$store.state.filedDetail.addr
         }, (errors, fields) => {
           if(errors) {
         _self.$toast.fail(errors[0].message)
@@ -81,7 +81,7 @@ export default class OtherLeave extends Vue {
     let formdata = new FormData()
     this.buttonLoading = true
     formdata.append('id', this.clockDetail.id)
-    formdata.append('address2', "123")
+    formdata.append('address2', this.$store.state.fieldDetail.addr)
     formdata.append('remark', this.remark)
     for(let i = 0;i<this.uploadImg.length;i++){
       formdata.append('file',this.uploadImg[i],"file_" + new Date() + ".jpg")
@@ -102,12 +102,12 @@ export default class OtherLeave extends Vue {
   }
   async created(){
     let { status, data } = await clockApi.queryUnfinishedPunchCard()
+
     if(status){
       console.log(data.data.unfinishedPunchCard.date)
       this.clockDetail = data.data.unfinishedPunchCard.date
-      let time = new Date(this.clockDetail.clocktime)
+      let time = new Date(this.clockDetail.clocktime.replace(/\-/g, "/"))
       this.$store.commit("update_clockTime", time)
-
       let time1 = setInterval(()=>{
         let now = new Date()
         let tampDateTime = new Date(now.getTime() - time.getTime())

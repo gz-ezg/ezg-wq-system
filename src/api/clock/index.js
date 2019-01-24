@@ -51,10 +51,20 @@ function getAccountAffirmLegworkMsg(){
     })
 }
 
+function orderNext(config){
+  let url = `order/next`
+  return new Promise((resolve, reject) => {
+      resolve(AjaxPost(url, config))
+  }).catch((err) => {
+      return err
+  })
+}
+
 export {
   saveLegworkVisitMsg,
   saveLegworkLeaveVisitMsg,
   queryUnfinishedPunchCard,
   getAccountAffirmLegworkMsg,
-  saveAccountAffirmLegworkMsg
+  saveAccountAffirmLegworkMsg,
+  orderNext
 }

@@ -68,7 +68,7 @@ export default class OtherIndex extends Vue {
         return this.$store.state.fieldDetail.fieldType
     }
     get uploadImg(){
-      return this.$store.state.fieldDetail.uploadImg
+        return this.$store.state.fieldDetail.uploadImg
     }
     open_company_select(id){
         this.$store.commit("change_company_modal_status")

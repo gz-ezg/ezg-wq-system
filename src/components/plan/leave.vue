@@ -39,7 +39,7 @@ import schema from 'async-validator'
         localInit
     }
 })
-export default class OtherLeave extends Vue {
+export default class planLeave extends Vue {
   remark = ""
   buttonLoading:Boolean = false
   timeTamp = "0时0分"

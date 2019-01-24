@@ -11,6 +11,9 @@ const fieldDetail = {
     finalTime: ""
   },
   mutations: {
+    set_accout_status(state, item){
+      state.fieldType = item
+    },
     update_addr(state, addr){
       state.addr = addr
     },

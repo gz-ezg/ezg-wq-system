@@ -25,7 +25,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator'
 import * as commonApi from '@api/common/index.js'
 
 @Component
-export default class companyList extends Vue{
+export default class customerList extends Vue{
     searchCompanyname:String = ""
     companyList:Object[] = []
 

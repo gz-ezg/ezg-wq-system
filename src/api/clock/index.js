@@ -33,8 +33,28 @@ function queryUnfinishedPunchCard(){
   })
 }
 
+function saveAccountAffirmLegworkMsg(config){
+    let url = `legwork/apiSaveAccountAffirmLegworkMsg`
+    return new Promise((resolve, reject) => {
+        resolve(AjaxPost(url, config))
+    }).catch((err) => {
+        return err
+    })
+}
+
+function getAccountAffirmLegworkMsg(){
+    let url = `legwork/apiAccountAffirmLegworkMsg`
+    return new Promise((resolve, reject) => {
+        resolve(AjaxPost(url))
+    }).catch((err) => {
+        return err
+    })
+}
+
 export {
   saveLegworkVisitMsg,
   saveLegworkLeaveVisitMsg,
-  queryUnfinishedPunchCard
+  queryUnfinishedPunchCard,
+  getAccountAffirmLegworkMsg,
+  saveAccountAffirmLegworkMsg
 }

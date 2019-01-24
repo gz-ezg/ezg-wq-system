@@ -18,7 +18,7 @@ import { yasuo } from './img_beforeUpload'
 import * as commonApi from '@api/common/index.js'
 
 @Component
-export default class OtherIndex extends Vue {
+export default class localInit extends Vue {
   localLoading: boolean = false
   returnNumber = 0
   get addr(){

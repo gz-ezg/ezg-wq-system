@@ -14,7 +14,7 @@
                           required
                           clearable
                           readonly
-                          placeholder="请选择外勤类型"
+                          placeholder="请选择外勤状态"
                           @click.native="open_fieldType_select"
                         />
                         <van-field
@@ -49,7 +49,7 @@ import schema from 'async-validator'
         localInit
     }
 })
-export default class OtherLeave extends Vue {
+export default class marketLeave extends Vue {
   remark = ""
   buttonLoading:Boolean = false
   timeTamp = "0时0分"

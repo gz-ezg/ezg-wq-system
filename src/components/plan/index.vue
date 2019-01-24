@@ -57,7 +57,7 @@ import { Toast } from 'vant';
         localInit
     }
 })
-export default class OtherIndex extends Vue {
+export default class planIndex extends Vue {
     buttonLoading: boolean = false
     memo = ""
 
@@ -92,7 +92,7 @@ export default class OtherIndex extends Vue {
       let _self = this
       //  表单验证
       var descriptor = {
-        company: { type: "number", required: true, message: "请选择服务企业！"},
+        // company: { type: "number", required: true, message: "请选择服务企业！"},
         type_typecode: { type: "string", required: true, message: "请选择外勤类型！"},
         img_array: { type: "array", required:true, message: "请选择照片！"},
         // addr: {type: "string", required:true, message: "获取定位失效，请重开窗口！"}
@@ -100,7 +100,7 @@ export default class OtherIndex extends Vue {
       var validator = new schema(descriptor);
       validator.validate(
         {
-          company: _self.company.companyid,
+        //   company: _self.company.companyid,
           type_typecode: _self.fieldType.typecode,
           img_array: _self.$store.state.fieldDetail.showImg,
           // addr: _self.$store.state.filedDetail.addr,

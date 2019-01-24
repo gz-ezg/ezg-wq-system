@@ -25,7 +25,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import { yasuo } from './img_beforeUpload'
 
 @Component
-export default class OtherIndex extends Vue {
+export default class uploadImg extends Vue {
     async upload(e){
         let _self = this
         let img = await yasuo(e)

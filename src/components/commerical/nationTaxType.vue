@@ -12,14 +12,6 @@
                 </van-cell>
             </van-cell-group>
         </van-checkbox-group>
-        <!-- <van-checkbox-group v-model="result">
-            <van-cell-group>
-                <van-cell v-for="item in list" :title="`复选框 ${item}`" :key="item">
-                <van-checkbox :name="item" />
-                </van-cell>
-            </van-cell-group>
-        </van-checkbox-group> -->
-        <!-- <van-button type="primary" @click="save" bottom-action>关闭</van-button> -->
     </van-dialog>
 </template>
 

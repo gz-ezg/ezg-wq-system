@@ -50,7 +50,6 @@
                 </div>
                 <div style="width:80%;margin:auto;margin-top:20px">
                     <center>
-                        <!-- capture="camera" -->
                         <van-uploader accept="image/*" :before-read="upload" capture="camera">
                             <van-icon name="photograph" /><span>  点击拍摄照片</span>
                         </van-uploader>

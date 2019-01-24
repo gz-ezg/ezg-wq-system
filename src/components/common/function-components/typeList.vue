@@ -22,7 +22,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator'
 import * as commonApi from '@api/common/index.js'
 
 @Component
-export default class companyList extends Vue{
+export default class typeList extends Vue{
     get fieldTypeModalStatus(){
         return this.$store.state.modalStatus.fieldTypeModalStatus
     }

@@ -29,7 +29,7 @@ export default class uploadImg extends Vue {
     async upload(e){
         let _self = this
         let img = await yasuo(e)
-        this.$store.commit("push_upload_img", e)
+        this.$store.commit("push_upload_img", img)
         let reader = new FileReader()
         reader.readAsDataURL(e)
         let filename = e.name

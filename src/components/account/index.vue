@@ -18,9 +18,32 @@
                         clearable
                         readonly
                         placeholder="请选择外勤类型"
-                        @click.native="open_fieldType_select"
                     />
                 </van-cell-group>
+          <div class="spz">
+            <div>A类外勤：</div>
+            <div class="spzz">
+              <div v-for="item in fieldTypeList" :key="item.id" @click="choose(item)" v-if="item.id===11351 || item.id===11352 || item.id===11353 || item.id===11354 || item.id===11368 || item.id===11355 || item.id===11356 || item.id===11357 || item.id===11358 || item.id===11359 || item.id===11360">
+                <div class="spzzz">{{item.typename}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="spz">
+            <div>B类外勤：</div>
+            <div class="spzz">
+              <div v-for="item in fieldTypeList" :key="item.id" @click="choose(item)" v-if="item.id===11361 || item.id===11362 || item.id===11363 || item.id===11364 || item.id===11365 || item.id===11366 || item.id===11367">
+                <div class="spzzz">{{item.typename}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="spz">
+            <div>其他：</div>
+            <div class="spzz">
+              <div v-for="item in fieldTypeList" :key="item.id" @click="choose(item)" v-if="item.id===11105">
+                <div class="spzzz" :class="{'sb':'showNice'}">{{item.typename}}</div>
+              </div>
+            </div>
+          </div>
                 <upload-img></upload-img>
                 <div style="width:80%;margin:auto;margin-top:0.6rem">
                     <van-cell-group>
@@ -38,13 +61,14 @@
             <van-button type="primary" bottom-action style="font-size:20px;border-radius:5px" :loading="buttonLoading" @click="data_check">开始打卡</van-button>
         </van-tabbar>
         </van-row>
-    </van-row>
 </template>
 
 <script lang="ts">
 import uploadImg from '../common/main-components/uploadImg.vue'
 import localInit from '../common/main-components/localInit.vue'
+import typeList from '../../components/account/'
 import schema from 'async-validator'
+
 
 import { Component, Vue, Watch, Mixins } from 'vue-property-decorator'
 import * as commonApi from '@api/common/index'
@@ -67,10 +91,16 @@ export default class comfirmIndex extends Vue {
     get fieldType(){
         return this.$store.state.fieldDetail.fieldType
     }
+    choose(type){
+      this.$store.commit("set_fieldType", type)
+    }
+    get fieldTypeList(){
+      return this.$store.state.fieldDetail.fieldTypeList
+    }
     get uploadImg(){
       return this.$store.state.fieldDetail.uploadImg
     }
-    open_company_select(id){
+  open_company_select(id){
         this.$store.commit("change_company_modal_status")
     }
 
@@ -151,4 +181,26 @@ export default class comfirmIndex extends Vue {
 #address .van-cell__value--alone{
   text-align: center
 }
+.spz{
+  width: 85%;
+  background-color: #fff;
+  color: #323233;
+  font-size: 0.37333rem;
+}
+.spzz{
+  display: -webkit-flex;
+  display: flex;
+}
+  .spzzz{
+    width: 2.6rem;
+    margin: 0.1rem 0.1rem 0.1rem 0rem;
+    padding: 0.1rem;
+    border: 1px solid #dddee1;
+    text-align: center;
+  }
+  .spzzz:hover{
+    border-color: #57a3f3;
+    background: #57a3f3;
+    color: #fff;
+  }
 </style>

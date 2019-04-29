@@ -8,7 +8,7 @@
         >
         <van-radio-group :value="fieldType.typecode">
             <van-cell-group>
-                <van-cell v-for="item in fieldTypeList" :key="item.id" clickable>
+                <van-cell v-for="item in fieldTypeList" :key="item.id" clickable @click="choose(item)">
                     <van-col span="22"><div>{{item.typename}}</div></van-col>
                     <van-col span="2"><van-radio :name="item.typecode" /></van-col>
                 </van-cell>

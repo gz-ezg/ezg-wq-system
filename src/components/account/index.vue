@@ -39,7 +39,7 @@
           <div class="spz">
             <div>其他：</div>
             <div class="spzz">
-              <div v-for="item in fieldTypeList" :key="item.id" @click="choose(item)" v-if="item.id===11105">
+              <div v-for="item in fieldTypeList" :key="item.id" @click="choose(item)" v-if="item.id===11105 || item.id===11102 || item.id===11164">
                 <div class="spzzz" :class="{'sb':'showNice'}">{{item.typename}}</div>
               </div>
             </div>

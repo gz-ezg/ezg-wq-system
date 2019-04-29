@@ -23,24 +23,24 @@
           <div class="spz">
             <div>A类外勤：</div>
             <div class="spzz">
-              <div v-for="item in fieldTypeList" :key="item.id" @click="choose(item)" v-if="item.id===11351 || item.id===11352 || item.id===11353 || item.id===11354 || item.id===11368 || item.id===11355 || item.id===11356 || item.id===11357 || item.id===11358 || item.id===11359 || item.id===11360">
-                <div class="spzzz">{{item.typename}}</div>
+              <div v-for="(item,index) in fieldTypeList" :key="item.id" @click="choose(item,index)" v-if="item.id===11351 || item.id===11352 || item.id===11353 || item.id===11354 || item.id===11368 || item.id===11355 || item.id===11356 || item.id===11357 || item.id===11358 || item.id===11359 || item.id===11360">
+                <div class="spzzz" :class="{'spzzzz':currentIndex===index}">{{item.typename}}</div>
               </div>
             </div>
           </div>
           <div class="spz">
             <div>B类外勤：</div>
             <div class="spzz">
-              <div v-for="item in fieldTypeList" :key="item.id" @click="choose(item)" v-if="item.id===11361 || item.id===11362 || item.id===11363 || item.id===11364 || item.id===11365 || item.id===11366 || item.id===11367">
-                <div class="spzzz">{{item.typename}}</div>
+              <div v-for="(item,index) in fieldTypeList" :key="item.id" @click="choose(item,index)" v-if="item.id===11361 || item.id===11362 || item.id===11363 || item.id===11364 || item.id===11365 || item.id===11366 || item.id===11367">
+                <div class="spzzz" :class="{'spzzzz':currentIndex===index}">{{item.typename}}</div>
               </div>
             </div>
           </div>
           <div class="spz">
             <div>其他：</div>
             <div class="spzz">
-              <div v-for="item in fieldTypeList" :key="item.id" @click="choose(item)" v-if="item.id===11105 || item.id===11102 || item.id===11164">
-                <div class="spzzz" :class="{'sb':'showNice'}">{{item.typename}}</div>
+              <div v-for="(item,index) in fieldTypeList" :key="item.id" @click="choose(item,index)" v-if="item.id===11105 || item.id===11102 || item.id===11164">
+                <div class="spzzz" :class="{'spzzzz':currentIndex===index}">{{item.typename}}</div>
               </div>
             </div>
           </div>
@@ -84,6 +84,7 @@ import { Toast } from 'vant';
 export default class comfirmIndex extends Vue {
     buttonLoading: boolean = false
     memo = ""
+    currentIndex = ""
 
     get company(){
         return this.$store.state.fieldDetail.company
@@ -91,8 +92,9 @@ export default class comfirmIndex extends Vue {
     get fieldType(){
         return this.$store.state.fieldDetail.fieldType
     }
-    choose(type){
+    choose(type,index){
       this.$store.commit("set_fieldType", type)
+      this.currentIndex = index
     }
     get fieldTypeList(){
       return this.$store.state.fieldDetail.fieldTypeList
@@ -199,6 +201,9 @@ export default class comfirmIndex extends Vue {
     text-align: center;
   }
   .spzzz:hover{
+    border-color: #57a3f3;
+  }
+   .spzzzz{
     border-color: #57a3f3;
     background: #57a3f3;
     color: #fff;
